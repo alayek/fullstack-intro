@@ -11,7 +11,7 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-@app.route('/')
+# @app.route('/')
 @app.route('/restaurants/<int:restaurant_id>/')
 def restaurantMenu(restaurant_id):
   restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
@@ -28,17 +28,17 @@ def restaurantMenu(restaurant_id):
   return output
   
 #Task 1: Create route for new_menu_item function here
-@app.route('/restaurant/<int:restaurant_id>/new/')
+@app.route('/restaurants/<int:restaurant_id>/new/')
 def new_menu_item(restaurant_id):
   return "page to create a new menu item. Task 1 complete!"
   
 #Task 2: Create route for edit_menu_item function here
-@app.route('/restaurant/<int:restaurant_id>/<int:menu_id/edit/')
-def edit_menu_item(restaurant_id, menu_id)
+@app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/edit/')
+def edit_menu_item(restaurant_id, menu_id):
   return "page to edit a menu item. Task 2 complete!"
   
 #Task 3: Create a route for delete_menu_item function here
-@app.route('/restaurant/<int:restaurant_id>/<int:menu_id>/delete/')
+@app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/delete/')
 def delete_menu_item(restaurant_id, menu_id):
   return "page to delete a menu item. Task 3 complete!"
   
