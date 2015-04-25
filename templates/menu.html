@@ -8,6 +8,7 @@
 
 <div class="container">
 	<h1>{{restaurant.name}}</h1>
+	<a href="{{url_for('new_menu_item', restaurant_id=restaurant.id)}}" class="btn btn-default">Add Item</a> 
 	<div class="col-md-12">
 		{% for item in items %}
 			<div class="col-md-6 col-sm-8 col-xs-10">
