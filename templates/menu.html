@@ -15,7 +15,9 @@
 					<h2>{{item.name}}<small>&nbsp;{{item.price}}&nbsp;</small></h2>
 				</div>
 				<div class="row">
-					{{item.description}}
+					<h4>
+						{{item.description}}
+					</h4>
 				</div>
 				<div class="row">
 					<a href="{{url_for('edit_menu_item', restaurant_id=restaurant.id, menu_id=item.id)}}" class="btn btn-primary">
