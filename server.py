@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect, flash
+from flask import Flask, render_template, url_for, request, redirect, flash, jsonify
 app = Flask(__name__)
 
 from sqlalchemy import create_engine
@@ -59,6 +59,23 @@ def delete_menu_item(restaurant_id, menu_id):
     return redirect(url_for('restaurant_menu', restaurant_id=restaurant_id))
   else:
     return render_template('delete_menu.html', restaurant_id=restaurant_id, menu_id=menu_id, item=delete_item)
+
+# For JSON API
+@app.route('/restaurants/<int:restaurant_id>/menu/json/')
+def restaurant_menu_json(restaurant_id):
+  restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+  items = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
+  return jsonify(MenuItems=[item.serialize for item in items])
+
+# For JSON API specific to menu
+@app.route('/restaurants/<int:restaurant_id>/menu/<int:menu_id>/json/')
+def restaurant_menu_item_json(restaurant_id, menu_id):
+  restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+  try:
+    item = session.query(MenuItem).filter_by(restaurant_id=restaurant_id,id=menu_id).one()
+    return jsonify(MenuItem=item.serialize)
+  except:
+    return "no data found"
   
   
 if __name__ == '__main__':
