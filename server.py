@@ -47,10 +47,13 @@ def edit_menu_item(restaurant_id, menu_id):
   count = session.query(Restaurant).count() # get no. of restaurants, for pagination
   if request.method == 'POST':
     if request.form['name']:
+      name = edit_item.name # store the previous name
       edit_item.name = request.form['name']
+      edit_item.price = '$' + request.form['price']
+      edit_item.description = request.form['description']
       session.add(edit_item)
       session.commit()
-      flash("Item %s edited" % edit_item.name)
+      flash("Item %s edited" % name)
     return redirect(url_for('restaurant_menu', restaurant_id=restaurant_id))
   else:
     return render_template('edit_menu.html', restaurant=restaurant, menu_id=menu_id, item=edit_item, count=count)

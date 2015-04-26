@@ -7,6 +7,24 @@
 <body>
 
 <div class="container">
+	<div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+		<h4>
+			<p>
+				<!--MESSAGE FLASHING EXAMPLE -->
+				{% with messages = get_flashed_messages() %}
+				{% if messages %}
+
+				<ul class="list-group">
+				{% for message in messages %}
+				  <li class="list-group-item list-group-item-success">{{message}}</li>
+				  {% endfor %}
+				</ul>
+				{% endif %}
+				{% endwith %}
+			</p>
+
+		</h4>
+	</div>
 	<div class="page-header">
 		<h1>
 			<a href="{{url_for('show_restaurants')}}">Best Restaurants</a>
@@ -55,24 +73,6 @@
 		<h2>{{restaurant.name}}</h2>
 		<p>{{restaurant.description}}</p>
 		<p><a href="{{url_for('new_menu_item', restaurant_id=restaurant.id)}}" class="btn btn-primary">Add Item</a></p>
-	</div>
-	<div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
-		<h4>
-			<p>
-				<!--MESSAGE FLASHING EXAMPLE -->
-				{% with messages = get_flashed_messages() %}
-				{% if messages %}
-
-				<ul class="list-group">
-				{% for message in messages %}
-				  <li class="list-group-item list-group-item-success">{{message}}</li>
-				  {% endfor %}
-				</ul>
-				{% endif %}
-				{% endwith %}
-			</p>
-
-		</h4>
 	</div>
 	<div class="col-md-12">
 		{% for item in items %}
