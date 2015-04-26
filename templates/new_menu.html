@@ -7,20 +7,117 @@
 </head>
 <body>
 <div class="container">
+	<div class="page-header">
+			<h1>
+				<a href="{{url_for('show_restaurants')}}">Best Restaurants</a>
+				<small>All restaurants in the bay area</small>
+				<ul class="pagination pagination-lg">
+				  	{% if restaurant.id > 1 %}
+				  		<li>
+					      <a href="{{url_for('restaurant_menu', restaurant_id=restaurant.id-1)}}" aria-label="Previous">
+					        <span aria-hidden="true">&laquo;</span>
+					      </a>
+					    </li>
+					 {% else %}
+					 	<li class="disabled">
+					 		<a href="#">
+					 			<span aria-hidden="true">&laquo;</span>
+					 		</a>
+					 	</li>
+				  	{% endif %}
+				    
+				    {% for i in range(1, count+1) %}
+						{% if i == restaurant.id%}
+							<li class="active"><a href="{{url_for('restaurant_menu', restaurant_id=i)}}">{{i}}</a></li>
+						{% else %}
+							<li><a href="{{url_for('restaurant_menu', restaurant_id=i)}}">{{i}}</a></li>
+						{% endif%}
+				    {% endfor %}
+
+				    {% if restaurant.id < count %}
+				  		<li>
+					      <a href="{{url_for('restaurant_menu', restaurant_id=restaurant.id+1)}}" aria-label="Previous">
+					        <span aria-hidden="true">&raquo;</span>
+					      </a>
+					    </li>
+					 {% else %}
+					 	<li class="disabled">
+					 		<a href="#">
+					 			<span aria-hidden="true">&raquo;</span>
+					 		</a>
+					 	</li>
+				  	{% endif %}
+				    
+				  </ul>
+			</h1>
+		</div>
 	<h2>New Menu Item<small>&nbsp;Add your delicious dish here!</small></h2>
 	
-	<p class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-		<form action="{{url_for('new_menu_item', restaurant_id=restaurant_id)}}" method="POST" class="form-inline">
+	<!-- <p class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+		<form action="{{url_for('new_menu_item', restaurant_id=restaurant.id)}}" method="POST" class="form-inline">
 			<div class="form-group">
 				<label for="new_menu_item">
 					Your new menu item
 				</label>
 				<input type="text" id="new_menu_item" name="name" placeholder="New menu item" class="form-control">
 				<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
-				<a href="{{url_for('restaurant_menu', restaurant_id=restaurant_id)}}" class="btn btn-default">Cancel</a>
+				<a href="{{url_for('restaurant_menu', restaurant_id=restaurant.id)}}" class="btn btn-default">Cancel</a>
 			</div>
 		</form>
-	</p>
+	</p> -->
+	
+	<div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">Add your item</h3>
+			</div>
+			<div class="panel-body">
+				<form action="{{url_for('new_menu_item', restaurant_id=restaurant.id)}}" method="POST"class="form-horizontal">
+				  <div class="form-group">
+				    <label for="new_menu_item" class="col-sm-2 control-label">Name</label>
+				    <div class="col-sm-10">
+				      <input type="text" class="form-control" name="name" id="new_menu_item" placeholder="Item name">
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="new_menu_item_price" class="col-sm-2 control-label">Price</label>
+				    <div class="col-sm-10">
+				    	<div class="input-group">
+					  		<div class="input-group-addon">$</div>
+					  		<input type="text" name="price" class="form-control" id="new_menu_item_price" placeholder="price in decimal">
+					  	</div>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label for="new_menu_item_description" class="col-sm-2 control-label">Description</label>
+				    <div class="col-sm-10">
+				    	<textarea name="description" name="description" class="form-control" id="new_menu_item_description" rows="4">
+				    		Add description here
+				    	</textarea>
+				    </div>
+				  </div>
+				  <div class="form-group">
+			  	
+			  		<div class="col-sm-offset-2 col-sm-10">
+				      <input type="submit" class="btn btn-primary" value="Add">
+				    </div>
+					    	
+				  	
+				    
+				  </div>
+				</form>
+			</div>
+
+			<div class="panel-footer">
+				<a href="{{url_for('restaurant_menu', restaurant_id=restaurant.id)}}" class="btn btn-success">
+		    		<span class="glyphicon glyphicon-repeat"></span>&nbsp;Cancel
+		    	</a>
+			</div>
+			
+		</div>
+	</div>
+	
+
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

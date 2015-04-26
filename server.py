@@ -30,14 +30,16 @@ def restaurant_menu(restaurant_id):
 #Task 1: Create route for new_menu_item function here
 @app.route('/restaurants/<int:restaurant_id>/new/', methods=['GET', 'POST'])
 def new_menu_item(restaurant_id):
+  restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+  count = session.query(Restaurant).count()
   if request.method == 'POST':
-    new_item = MenuItem(name=request.form['name'], restaurant_id=restaurant_id)
+    new_item = MenuItem(name=request.form['name'], restaurant_id=restaurant_id, price='$' + request.form['price'], description=request.form['description'])
     session.add(new_item)
     session.commit()
     flash("New menu item %s created" % new_item.name)
     return redirect(url_for('restaurant_menu', restaurant_id=restaurant_id))
   else:
-    return render_template('new_menu.html', restaurant_id=restaurant_id)
+    return render_template('new_menu.html', restaurant=restaurant, count=count)
   
 #Task 2: Create route for edit_menu_item function here
 @app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/edit/', methods=['GET', 'POST'])

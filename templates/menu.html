@@ -27,8 +27,6 @@
 	</div>
 	<div class="page-header">
 		<h1>
-			<a href="{{url_for('show_restaurants')}}">Best Restaurants</a>
-			<small>All restaurants in the bay area</small>
 			<ul class="pagination pagination-lg">
 			  	{% if restaurant.id > 1 %}
 			  		<li>
@@ -67,6 +65,8 @@
 			  	{% endif %}
 			    
 			  </ul>
+			  <a href="{{url_for('show_restaurants')}}">Best Restaurants</a>
+			<small>All restaurants in the bay area</small>
 		</h1>
 	</div>
 	<div class="jumbotron">
