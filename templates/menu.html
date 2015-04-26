@@ -13,6 +13,24 @@
 		<a href="{{url_for('new_menu_item', restaurant_id=restaurant.id)}}" class="btn btn-default">Add Item</a> 
 	</p>
 	</div>
+	<div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+		<h4>
+			<p>
+				<!--MESSAGE FLASHING EXAMPLE -->
+				{% with messages = get_flashed_messages() %}
+				{% if messages %}
+
+				<ul>
+				{% for message in messages %}
+				  <li><strong>{{message}}</strong></li>
+				  {% endfor %}
+				</ul>
+				{% endif %}
+				{% endwith %}
+			</p>
+
+		</h4>
+	</div>
 	<div class="col-md-12">
 		{% for item in items %}
 			<div class="col-md-4 col-sm-6 col-xs-6">
