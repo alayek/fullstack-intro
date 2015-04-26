@@ -11,7 +11,15 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-# @app.route('/')
+@app.route('/')
+@app.route('/restaurants/')
+def show_restaurants():
+  menus = [];
+  restaurants = session.query(Restaurant).all()
+  for restaurant in restaurants:
+    menus.append(session.query(MenuItem).filter_by(restaurant_id=restaurant.id).count())
+  return render_template('restaurants.html', restaurants=restaurants, menus=menus)
+
 @app.route('/restaurants/<int:restaurant_id>/')
 def restaurant_menu(restaurant_id):
   restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
@@ -35,6 +43,8 @@ def new_menu_item(restaurant_id):
 @app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/edit/', methods=['GET', 'POST'])
 def edit_menu_item(restaurant_id, menu_id):
   edit_item = session.query(MenuItem).filter_by(id=menu_id).one()
+  restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+  count = session.query(Restaurant).count() # get no. of restaurants, for pagination
   if request.method == 'POST':
     if request.form['name']:
       edit_item.name = request.form['name']
@@ -43,7 +53,7 @@ def edit_menu_item(restaurant_id, menu_id):
       flash("Item %s edited" % edit_item.name)
     return redirect(url_for('restaurant_menu', restaurant_id=restaurant_id))
   else:
-    return render_template('edit_menu.html', restaurant_id=restaurant_id, menu_id=menu_id, item=edit_item)
+    return render_template('edit_menu.html', restaurant=restaurant, menu_id=menu_id, item=edit_item, count=count)
 
 #Task 3: Create a route for delete_menu_item function here
 @app.route('/restaurants/<int:restaurant_id>/<int:menu_id>/delete/', methods=['GET', 'POST'])

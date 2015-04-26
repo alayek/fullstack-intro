@@ -21,7 +21,7 @@ session = DBSession()
 
 
 #Menu for UrbanBurger
-restaurant1 = Restaurant(name = "Urban Burger")
+restaurant1 = Restaurant(name = "Urban Burger",description="You told us you're trying harder to be more nutrition-minded for yourself and for your family. We listened. That's why we have been accelerating our efforts to serve food you feel better about eating and to help you make informed nutrition choices.")
 
 session.add(restaurant1)
 session.commit()
@@ -76,7 +76,9 @@ session.commit()
 
 
 #Menu for Super Stir Fry
-restaurant2 = Restaurant(name = "Super Stir Fry")
+
+
+restaurant2 = Restaurant(name = "Super Stir Fry", description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam odit suscipit porro in alias accusamus dolor, soluta omnis necessitatibus unde, aperiam quasi facere, numquam sint vero incidunt nihil? Soluta, ea.")
 
 session.add(restaurant2)
 session.commit()
@@ -92,22 +94,22 @@ menuItem2 = MenuItem(name = "Peking Duck", description = " A famous duck dish fr
 session.add(menuItem2)
 session.commit()
 
-menuItem3 = MenuItem(name = "Spicy Tuna Roll", description = "Seared rare ahi, avocado, edamame, cucumber with wasabi soy sauce ", price = "15", course = "Entree", restaurant = restaurant2)
+menuItem3 = MenuItem(name = "Spicy Tuna Roll", description = "Seared rare ahi, avocado, edamame, cucumber with wasabi soy sauce ", price = "$15", course = "Entree", restaurant = restaurant2)
 
 session.add(menuItem3)
 session.commit()
 
-menuItem4 = MenuItem(name = "Nepali Momo ", description = "Steamed dumplings made with vegetables, spices and meat. ", price = "12", course = "Entree", restaurant = restaurant2)
+menuItem4 = MenuItem(name = "Nepali Momo ", description = "Steamed dumplings made with vegetables, spices and meat. ", price = "$12.54", course = "Entree", restaurant = restaurant2)
 
 session.add(menuItem4)
 session.commit()
 
-menuItem5 = MenuItem(name = "Beef Noodle Soup", description = "A Chinese noodle soup made of stewed or red braised beef, beef broth, vegetables and Chinese noodles.", price = "14", course = "Entree", restaurant = restaurant2)
+menuItem5 = MenuItem(name = "Beef Noodle Soup", description = "A Chinese noodle soup made of stewed or red braised beef, beef broth, vegetables and Chinese noodles.", price = "$14.12", course = "Entree", restaurant = restaurant2)
 
 session.add(menuItem5)
 session.commit()
 
-menuItem6 = MenuItem(name = "Ramen", description = "a Japanese noodle soup dish. It consists of Chinese-style wheat noodles served in a meat- or (occasionally) fish-based broth, often flavored with soy sauce or miso, and uses toppings such as sliced pork, dried seaweed, kamaboko, and green onions.", price = "12", course = "Entree", restaurant = restaurant2)
+menuItem6 = MenuItem(name = "Ramen", description = "a Japanese noodle soup dish. It consists of Chinese-style wheat noodles served in a meat- or (occasionally) fish-based broth, often flavored with soy sauce or miso, and uses toppings such as sliced pork, dried seaweed, kamaboko, and green onions.", price = "$12.12", course = "Entree", restaurant = restaurant2)
 
 session.add(menuItem6)
 session.commit()
@@ -116,7 +118,7 @@ session.commit()
 
 
 #Menu for Panda Garden
-restaurant1 = Restaurant(name = "Panda Garden")
+restaurant1 = Restaurant(name = "Panda Garden", description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni perspiciatis dolores aut, corporis. Repudiandae vel quas id quo? Expedita porro enim quae nisi neque, possimus molestiae numquam, illo laudantium commodi!")
 
 session.add(restaurant1)
 session.commit()
@@ -149,7 +151,7 @@ session.commit()
 
 
 #Menu for Thyme for that
-restaurant1 = Restaurant(name = "Thyme for That Vegetarian Cuisine ")
+restaurant1 = Restaurant(name = "Thyme for That Vegetarian Cuisine", description="The secret to success is much like the secret to making a better pizza - the more you put into it the more you get out of it. We are as hungry for perfection today as we were when we first opened our doors over 30 years ago. That hunger is what allows us to not only provide you with better ingredients but to be the best in the business at making innovative new products and recipes")
 
 session.add(restaurant1)
 session.commit()
@@ -188,7 +190,7 @@ session.commit()
 
 
 #Menu for Tony's Bistro
-restaurant1 = Restaurant(name = "Tony\'s Bistro ")
+restaurant1 = Restaurant(name = "Tony\'s Bistro", description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni perspiciatis dolores aut, corporis. Repudiandae vel quas id quo? Expedita porro enim quae nisi neque, possimus molestiae numquam, illo laudantium commodi!")
 
 session.add(restaurant1)
 session.commit()
@@ -223,7 +225,7 @@ session.commit()
 
 
 #Menu for Andala's 
-restaurant1 = Restaurant(name = "Andala\'s")
+restaurant1 = Restaurant(name = "Andala\'s", description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni perspiciatis dolores aut, corporis. Repudiandae vel quas id quo? Expedita porro enim quae nisi neque, possimus molestiae numquam, illo laudantium commodi!")
 
 session.add(restaurant1)
 session.commit()
@@ -258,7 +260,7 @@ session.commit()
 
 
 #Menu for Auntie Ann's
-restaurant1 = Restaurant(name = "Auntie Ann\'s Diner' ")
+restaurant1 = Restaurant(name = "Auntie Ann\'s Diner", description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni perspiciatis dolores aut, corporis. Repudiandae vel quas id quo? Expedita porro enim quae nisi neque, possimus molestiae numquam, illo laudantium commodi!")
 
 session.add(restaurant1)
 session.commit()
@@ -303,7 +305,7 @@ session.commit()
 
 
 #Menu for Cocina Y Amor
-restaurant1 = Restaurant(name = "Cocina Y Amor ")
+restaurant1 = Restaurant(name = "Cocina Y Amor", description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni perspiciatis dolores aut, corporis. Repudiandae vel quas id quo? Expedita porro enim quae nisi neque, possimus molestiae numquam, illo laudantium commodi!")
 
 session.add(restaurant1)
 session.commit()
@@ -320,7 +322,7 @@ session.add(menuItem2)
 session.commit()
 
 
-restaurant1 = Restaurant(name = "State Bird Provisions")
+restaurant1 = Restaurant(name = "State Bird Provisions", description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni perspiciatis dolores aut, corporis. Repudiandae vel quas id quo? Expedita porro enim quae nisi neque, possimus molestiae numquam, illo laudantium commodi!")
 session.add(restaurant1)
 session.commit()
 

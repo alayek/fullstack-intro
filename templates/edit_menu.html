@@ -5,18 +5,68 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
 </head>
 <body>
+
 	<div class="container">
-		<h2>Edit Menu Item<small>&nbsp;Rename your delicious dish here!</small></h2>
+		<div class="page-header">
+			<h1>
+				<a href="{{url_for('show_restaurants')}}">Best Restaurants</a>
+				<small>All restaurants in the bay area</small>
+				<ul class="pagination pagination-lg">
+				  	{% if restaurant.id > 1 %}
+				  		<li>
+					      <a href="{{url_for('restaurant_menu', restaurant_id=restaurant.id-1)}}" aria-label="Previous">
+					        <span aria-hidden="true">&laquo;</span>
+					      </a>
+					    </li>
+					 {% else %}
+					 	<li class="disabled">
+					 		<a href="#">
+					 			<span aria-hidden="true">&laquo;</span>
+					 		</a>
+					 	</li>
+				  	{% endif %}
+				    
+				    {% for i in range(1, count+1) %}
+						{% if i == restaurant.id%}
+							<li class="active"><a href="{{url_for('restaurant_menu', restaurant_id=i)}}">{{i}}</a></li>
+						{% else %}
+							<li><a href="{{url_for('restaurant_menu', restaurant_id=i)}}">{{i}}</a></li>
+						{% endif%}
+				    {% endfor %}
+
+				    {% if restaurant.id < count %}
+				  		<li>
+					      <a href="{{url_for('restaurant_menu', restaurant_id=restaurant.id+1)}}" aria-label="Previous">
+					        <span aria-hidden="true">&raquo;</span>
+					      </a>
+					    </li>
+					 {% else %}
+					 	<li class="disabled">
+					 		<a href="#">
+					 			<span aria-hidden="true">&raquo;</span>
+					 		</a>
+					 	</li>
+				  	{% endif %}
+				    
+				  </ul>
+			</h1>
+		</div>
+		<div class="jumbotron">
+			<h2>{{restaurant.name}}</h2>
+			<p>{{restaurant.description}}</p>
+			<p><a href="{{url_for('new_menu_item', restaurant_id=restaurant.id)}}" class="btn btn-primary">Add Item</a></p>
+		</div>
+		<h2>Edit Menu Item<small>&nbsp;Edit your dish {{item.name}} here!</small></h2>
 
 		<p class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-			<form action="{{url_for('edit_menu_item', restaurant_id=restaurant_id, menu_id=menu_id)}}" method="POST" class="form-inline">
+			<form action="{{url_for('edit_menu_item', restaurant_id=restaurant.id, menu_id=menu_id)}}" method="POST" class="form-inline">
 				<div class="form-group">
 					<label for="edit_menu_item">
 						Update Item
 					</label>
 					<input type="text" id="edit_menu_item" name="name" class="form-control" placeholder="{{item.name}}">
 					<button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span></button>
-					<a href="{{url_for('restaurant_menu', restaurant_id=restaurant_id)}}" class="btn btn-default">Cancel</a>
+					<a href="{{url_for('restaurant_menu', restaurant_id=restaurant.id)}}" class="btn btn-default">Cancel</a>
 				</div>
 			</form>
 		</p>
