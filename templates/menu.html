@@ -27,8 +27,7 @@
 		</h4>
 	</div>
 	<div class="page-header">
-		<h1>
-			<ul class="pagination pagination-lg">
+		<ul class="pagination pagination-lg">
 			  	{% if restaurant.id > 1 %}
 			  		<li>
 				      <a href="{{url_for('restaurant_menu', restaurant_id=restaurant.id-1)}}" aria-label="Previous">
@@ -66,7 +65,8 @@
 			  	{% endif %}
 			    
 			  </ul>
-			  <a href="{{url_for('show_restaurants')}}">Best Restaurants</a>
+		<h1>
+			<a href="{{url_for('show_restaurants')}}">Best Restaurants</a>
 			<small>All restaurants in the bay area</small>
 		</h1>
 	</div>

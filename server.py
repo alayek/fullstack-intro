@@ -26,7 +26,25 @@ def restaurant_menu(restaurant_id):
   count = session.query(Restaurant).count() # get no. of restaurants, for pagination
   items = session.query(MenuItem).filter_by(restaurant_id = restaurant.id)
   return render_template('menu.html', restaurant=restaurant, items=items, count=count)
-  
+
+
+# Add route for restaurant editing
+@app.route('/restaurants/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
+def restaurant_edit(restaurant_id):
+  restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+  if request.method == 'POST':
+    # edit the restaurant here
+    prev_restaurant_name = restaurant.name
+    restaurant.name = request.form['name']
+    restaurant.description = request.form['description']
+    session.add(restaurant)
+    session.commit()
+    flash("Restaurant %s was successfully edited" % prev_restaurant_name)
+    return redirect(url_for('show_restaurants'))
+  else:
+    return render_template('edit_restaurant.html', restaurant=restaurant)
+
+
 #Task 1: Create route for new_menu_item function here
 @app.route('/restaurants/<int:restaurant_id>/new/', methods=['GET', 'POST'])
 def new_menu_item(restaurant_id):

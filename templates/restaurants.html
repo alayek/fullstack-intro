@@ -15,18 +15,27 @@
 		</div>
 		<div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
 			
-			<ul class="list-group">
+			<div class="list-group">
 				{% for restaurant in restaurants %}
-				<li class="list-group-item">
-					<a href="{{url_for('restaurant_menu', restaurant_id=restaurant.id)}}">
+				<div class="list-group-item">
+					<h4 class="list-group-item-heading">
+						<a href="{{url_for('restaurant_menu', restaurant_id=restaurant.id)}}">
 						{{restaurant.name}}
-						<span class="badge pull-right">
-							{{menus[restaurant.id-1]}}
-						</span>
-					</a>
-				</li>
+						</a>
+						<small>
+							<a href="{{url_for('restaurant_edit', restaurant_id=restaurant.id)}}" class="btn btn-default">	<span class="glyphicon glyphicon-pencil"></span>
+							</a>
+							<span class="badge pull-right">
+								{{menus[restaurant.id-1]}}
+							</span>
+						</small>
+					</h4>
+					<p class="list-group-item-content">
+						{{restaurant.description}}
+					</p>				
+				</div>
 				{% endfor%}
-			</ul>
+			</div>
 			
 		</div>
 	</div>
