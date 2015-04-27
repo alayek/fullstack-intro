@@ -27,44 +27,50 @@
 		</h4>
 	</div>
 	<div class="page-header">
-		<ul class="pagination pagination-lg">
-			  	{% if restaurant.id > 1 %}
-			  		<li>
-				      <a href="{{url_for('restaurant_menu', restaurant_id=restaurant.id-1)}}" aria-label="Previous">
-				        <span aria-hidden="true">&laquo;</span>
-				      </a>
-				    </li>
-				 {% else %}
-				 	<li class="disabled">
-				 		<a href="#">
-				 			<span aria-hidden="true">&laquo;</span>
-				 		</a>
-				 	</li>
-			  	{% endif %}
-			    
-			    {% for i in range(1, count+1) %}
-					{% if i == restaurant.id%}
-						<li class="active"><a href="{{url_for('restaurant_menu', restaurant_id=i)}}">{{i}}</a></li>
-					{% else %}
-						<li><a href="{{url_for('restaurant_menu', restaurant_id=i)}}">{{i}}</a></li>
-					{% endif%}
-			    {% endfor %}
+		<nav>
+			<ul class="pager">
+				{% if id_list|length == 1 %}	
+					<li class="previous disabled">
+						<a href="#"><span aria-hidden="true">&larr;</span>Previous</a>
+					</li>
+					<li class="next disabled">
+						<a href="#">Next<span aria-hidden="true">&rarr;</span></a>
+					</li>
+				{% elif restaurant.id == id_list[0] %}
+					<li class="previous disabled">
+						<a href="#"><span aria-hidden="true">&larr;</span>Previous</a>
+					</li>
+					<li class="next">
+						<a href="{{url_for('restaurant_menu', restaurant_id=id_list[1])}}">
+							Next<span aria-hidden=true>&rarr;</span>
+						</a>
+					</li>
+				{% elif restaurant.id == id_list[id_list | length - 1]%}
+					<li class="previous">
+						<a href="{{url_for('restaurant_menu', restaurant_id=id_list[id_list | length-2])}}">
+							<span aria-hidden="true">&larr;</span>Previous
+						</a>
+					</li>
+					<li class="next disabled">
+						<a href="#">Next<span aria-hidden="true">&rarr;</span></a>
+					</li>
+				{% else %}
+					<li class="previous">
+						<a href="{{url_for('restaurant_menu', restaurant_id=id_list[id_list.index(restaurant.id) - 1])}}">
+							<span aria-hidden="true">&larr;</span>Previous
+						</a>
+					</li>
+					<li class="next">
+						<a href="{{url_for('restaurant_menu', restaurant_id=id_list[id_list.index(restaurant.id) + 1])}}">
+							Next<span aria-hidden="true">&rarr;</span
+						</a>
+					</li>
+				{% endif %}
+			</ul>
+		</nav>
+		
 
-			    {% if restaurant.id < count %}
-			  		<li>
-				      <a href="{{url_for('restaurant_menu', restaurant_id=restaurant.id+1)}}" aria-label="Previous">
-				        <span aria-hidden="true">&raquo;</span>
-				      </a>
-				    </li>
-				 {% else %}
-				 	<li class="disabled">
-				 		<a href="#">
-				 			<span aria-hidden="true">&raquo;</span>
-				 		</a>
-				 	</li>
-			  	{% endif %}
-			    
-			  </ul>
+		
 		<h1>
 			<a href="{{url_for('show_restaurants')}}">Best Restaurants</a>
 			<small>All restaurants in the bay area</small>
