@@ -14,18 +14,23 @@ session = DBSession()
 @app.route('/')
 @app.route('/restaurants/')
 def show_restaurants():
-  menus = [];
+  menus = {}
   restaurants = session.query(Restaurant).all()
   for restaurant in restaurants:
-    menus.append(session.query(MenuItem).filter_by(restaurant_id=restaurant.id).count())
+    menus[restaurant.id] = session.query(MenuItem).filter_by(restaurant_id=restaurant.id).count()
   return render_template('restaurants.html', restaurants=restaurants, menus=menus)
 
 @app.route('/restaurants/<int:restaurant_id>/')
 def restaurant_menu(restaurant_id):
   restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
-  count = session.query(Restaurant).count() # get no. of restaurants, for pagination
+  restaurants = session.query(Restaurant).all() # get all the restaurant id
+  id_list = []
+  for res in restaurants:
+    id_list.append(res.id)
+
+  id_list.sort()
   items = session.query(MenuItem).filter_by(restaurant_id = restaurant.id)
-  return render_template('menu.html', restaurant=restaurant, items=items, count=count)
+  return render_template('menu.html', restaurant=restaurant, items=items, id_list=id_list)
 
 
 # Add route for restaurant editing
