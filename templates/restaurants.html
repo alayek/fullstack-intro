@@ -7,6 +7,24 @@
 </head>
 <body>
 	<div class="container">
+		<div class="col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+			<h4>
+				<p>
+					<!--MESSAGE FLASHING EXAMPLE -->
+					{% with messages = get_flashed_messages() %}
+					{% if messages %}
+
+					<ul class="list-group">
+					{% for message in messages %}
+					  <li class="list-group-item list-group-item-success">{{message}}</li>
+					  {% endfor %}
+					</ul>
+					{% endif %}
+					{% endwith %}
+				</p>
+
+			</h4>
+		</div>
 		<div class="page-header">
 			<h1>
 				Best Restaurants
