@@ -43,6 +43,9 @@
 						<small>
 							<a href="{{url_for('restaurant_edit', restaurant_id=restaurant.id)}}" class="btn btn-default">	<span class="glyphicon glyphicon-pencil"></span>
 							</a>
+							<a href="{{url_for('restaurant_delete', restaurant_id=restaurant.id)}}" class="btn btn-warning">
+								<span class="glyphicon glyphicon-trash"></span>
+							</a>
 							<span class="badge pull-right">
 								{{menus[restaurant.id-1]}}
 							</span>

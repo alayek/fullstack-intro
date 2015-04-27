@@ -45,6 +45,26 @@ def restaurant_edit(restaurant_id):
     return render_template('edit_restaurant.html', restaurant=restaurant)
 
 
+# Add route for restaurant deleting
+@app.route('/restaurants/<int:restaurant_id>/delete/', methods=['GET', 'POST'])
+def restaurant_delete(restaurant_id):
+  restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+  if request.method == 'POST':
+    name = restaurant.name
+    # first delete the menus from the MenuItem
+    menus = session.query(MenuItem).filter_by(restaurant_id=restaurant_id).all()
+    for menu in menus:
+      session.delete(menu)
+    # now the restaurant
+    session.delete(restaurant)
+    session.commit()
+    flash("Restaurant %s and all its menus were deleted" % name)
+    return redirect(url_for('show_restaurants'))
+  else:
+    return render_template('delete_restaurant.html', restaurant=restaurant)
+
+
+
 #Task 1: Create route for new_menu_item function here
 @app.route('/restaurants/<int:restaurant_id>/new/', methods=['GET', 'POST'])
 def new_menu_item(restaurant_id):
