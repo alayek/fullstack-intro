@@ -11,7 +11,10 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-
+# custom 404 pages
+@app.errorhandler(404)
+def page_not_found(e):
+  return render_template('404.html')
 
 
 # Homepage with list of restaurants
@@ -26,32 +29,39 @@ def show_restaurants():
 
 @app.route('/restaurants/<int:restaurant_id>/')
 def restaurant_menu(restaurant_id):
-  restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
-  restaurants = session.query(Restaurant).all() # get all the restaurant id
-  id_list = []
-  for res in restaurants:
-    id_list.append(res.id)
+  try:
+    restaurant = session.query(Restaurant).filter_by(id = restaurant_id).one()
+    restaurants = session.query(Restaurant).all() # get all the restaurant id
+    id_list = []
+    for res in restaurants:
+      id_list.append(res.id)
 
-  id_list.sort()
-  items = session.query(MenuItem).filter_by(restaurant_id = restaurant.id)
-  return render_template('menu.html', restaurant=restaurant, items=items, id_list=id_list)
+    id_list.sort()
+    items = session.query(MenuItem).filter_by(restaurant_id = restaurant.id)
+    return render_template('menu.html', restaurant=restaurant, items=items, id_list=id_list)
+  except Exception,e:
+    render_template('404.html')
+  
 
 
 # Add route for restaurant editing
 @app.route('/restaurants/<int:restaurant_id>/edit/', methods=['GET', 'POST'])
 def restaurant_edit(restaurant_id):
-  restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
-  if request.method == 'POST':
-    # edit the restaurant here
-    prev_restaurant_name = restaurant.name
-    restaurant.name = request.form['name']
-    restaurant.description = request.form['description']
-    session.add(restaurant)
-    session.commit()
-    flash("Restaurant %s was successfully edited" % prev_restaurant_name)
-    return redirect(url_for('show_restaurants'))
-  else:
-    return render_template('edit_restaurant.html', restaurant=restaurant)
+  try:
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    if request.method == 'POST':
+      # edit the restaurant here
+      prev_restaurant_name = restaurant.name
+      restaurant.name = request.form['name']
+      restaurant.description = request.form['description']
+      session.add(restaurant)
+      session.commit()
+      flash("Restaurant %s was successfully edited" % prev_restaurant_name)
+      return redirect(url_for('show_restaurants'))
+    else:
+      return render_template('edit_restaurant.html', restaurant=restaurant)
+  except Exception,e:
+    render_template('404.html')
 
 
 # Add route for restaurant deleting

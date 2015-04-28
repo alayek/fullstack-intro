@@ -12,44 +12,6 @@
 			<h1>
 				<a href="{{url_for('show_restaurants')}}">Best Restaurants</a>
 				<small>All restaurants in the bay area</small>
-				<ul class="pagination pagination-lg">
-				  	{% if restaurant.id > 1 %}
-				  		<li>
-					      <a href="{{url_for('restaurant_menu', restaurant_id=restaurant.id-1)}}" aria-label="Previous">
-					        <span aria-hidden="true">&laquo;</span>
-					      </a>
-					    </li>
-					 {% else %}
-					 	<li class="disabled">
-					 		<a href="#">
-					 			<span aria-hidden="true">&laquo;</span>
-					 		</a>
-					 	</li>
-				  	{% endif %}
-				    
-				    {% for i in range(1, count+1) %}
-						{% if i == restaurant.id%}
-							<li class="active"><a href="{{url_for('restaurant_menu', restaurant_id=i)}}">{{i}}</a></li>
-						{% else %}
-							<li><a href="{{url_for('restaurant_menu', restaurant_id=i)}}">{{i}}</a></li>
-						{% endif%}
-				    {% endfor %}
-
-				    {% if restaurant.id < count %}
-				  		<li>
-					      <a href="{{url_for('restaurant_menu', restaurant_id=restaurant.id+1)}}" aria-label="Previous">
-					        <span aria-hidden="true">&raquo;</span>
-					      </a>
-					    </li>
-					 {% else %}
-					 	<li class="disabled">
-					 		<a href="#">
-					 			<span aria-hidden="true">&raquo;</span>
-					 		</a>
-					 	</li>
-				  	{% endif %}
-				    
-				  </ul>
 			</h1>
 		</div>
 	<h2>New Menu Item<small>&nbsp;Add your delicious dish here!</small></h2>
