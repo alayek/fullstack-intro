@@ -11,6 +11,10 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
+
+
+
+# Homepage with list of restaurants
 @app.route('/')
 @app.route('/restaurants/')
 def show_restaurants():
@@ -68,7 +72,17 @@ def restaurant_delete(restaurant_id):
   else:
     return render_template('delete_restaurant.html', restaurant=restaurant)
 
-
+# Add route for restaurant adding
+@app.route('/restaurants/new/', methods=['GET', 'POST'])
+def restaurant_new():
+  if request.method == 'POST':
+    new_restaurant = Restaurant(name=request.form['name'], description=request.form['description'])
+    session.add(new_restaurant)
+    session.commit()
+    flash('Restaurant %s successfully registered! Go add some menu items in it!' % request.form['name'])
+    return redirect(url_for('show_restaurants'))
+  else:
+    return render_template('new_restaurant.html')
 
 #Task 1: Create route for new_menu_item function here
 @app.route('/restaurants/<int:restaurant_id>/new/', methods=['GET', 'POST'])

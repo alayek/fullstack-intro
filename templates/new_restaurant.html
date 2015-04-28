@@ -1,0 +1,67 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width,initial-scale=1" >
+	<title>Delete Restaurant</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+</head>
+<body>
+
+	<div class="container">
+		<div class="page-header">
+			<h1>
+				<a href="{{url_for('show_restaurants')}}">Best Restaurants</a>
+				<small>All restaurants in the bay area</small>
+			</h1>
+		</div>
+
+		<h2>Add your restaurant here</h2>
+		<div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">Add your restaurant</h3>
+				</div>
+				<div class="panel-body">
+					<form action="{{url_for('restaurant_new')}}" method="POST" class="form-horizontal">
+					  <div class="form-group">
+					    <label for="add_restaurant" class="col-sm-2 control-label">Name</label>
+					    <div class="col-sm-10">
+					      <input type="text" class="form-control" name="name" id="add_restaurant" placeholder="Restaurant name">
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label for="add_restaurant_description" class="col-sm-2 control-label">Description</label>
+					    <div class="col-sm-10">
+					    	<textarea name="description" name="description" class="form-control" id="add_restaurant_description" rows="4">
+					    		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae saepe tempora corrupti architecto repellat maiores dicta ea sequi accusamus illum officia perspiciatis sit ut similique, aliquam ex dolor repudiandae explicabo.
+					    	</textarea>
+					    </div>
+					  </div>
+					  <div class="form-group">
+				  	
+				  		<div class="col-sm-offset-2 col-sm-10">
+					      <input type="submit" class="btn btn-success" value="Add">
+					    </div>
+						    	
+					  	
+					    
+					  </div>
+					</form>
+				</div>
+
+				<div class="panel-footer">
+			    	<a href="{{url_for('show_restaurants')}}" class="btn btn-success">
+		    			<span class="glyphicon glyphicon-repeat"></span>&nbsp;Cancel
+		    		</a>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+</body>
+</html>
