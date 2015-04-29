@@ -142,6 +142,15 @@ def delete_menu_item(restaurant_id, menu_id):
   else:
     return render_template('delete_menu.html', restaurant_id=restaurant_id, menu_id=menu_id, item=delete_item)
 
+# For JSON API specific to restaurant
+@app.route('/restaurants/<int:restaurant_id>/json/')
+def restaurant_json(restaurant_id):
+  try:
+    restaurant = session.query(Restaurant).filter_by(id=restaurant_id).one()
+    return jsonify(Restaurant=restaurant.serialize)
+  except:
+    return "No data found"
+
 # For JSON API
 @app.route('/restaurants/<int:restaurant_id>/menu/json/')
 def restaurant_menu_json(restaurant_id):
